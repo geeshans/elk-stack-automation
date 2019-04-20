@@ -3,6 +3,8 @@
   become_method: sudo
   roles:
     - role: java
+      java_packages:
+        - openjdk-8-jdk
     - role: filebeat
     - role: elasticsearch
     - role: logstash

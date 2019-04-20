@@ -1,14 +1,22 @@
 ---
 - include: setup-Debian.yml
 
-- name: Install Filebeat.
-  package: name=filebeat state=present
+- name: Install Kibana.
+  package:
+    name: "{{ kibana_package }}"
+    state: "{{ kibana_package_state }}"
 
-- include: config.yml
-  when: filebeat_create_config
-
-- name: Ensure Filebeat is started and enabled at boot.
+- name: Ensure Kibana is started and enabled at boot.
   service:
-    name: filebeat
-    state: started
-    enabled: true
+    name: kibana
+    state: "{{ kibana_service_state }}"
+    enabled: "{{ kibana_service_enabled }}"
+
+- name: Copy Kibana configuration.
+  template:
+    src: "{{ kibana_config_template }}"
+    dest: "{{ kibana_config_file_path }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart kibana
