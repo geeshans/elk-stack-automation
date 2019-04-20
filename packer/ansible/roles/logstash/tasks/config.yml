@@ -1,26 +1,44 @@
 ---
-- name: Copy Filebeat configuration.
+- name: Create Logstash configuration files.
   template:
-    src: filebeat.yml.j2
-    dest: "/etc/filebeat/filebeat.yml"
+    src: "{{ item }}.j2"
+    dest: "/etc/logstash/conf.d/{{ item }}"
     owner: root
     group: root
     mode: 0644
-  notify: restart filebeat
+  with_items:
+    - 01-beats-input.conf
+    - 30-elasticsearch-output.conf
+  notify: restart logstash
 
-- name: Ensure Filebeat SSL key pair directory exists.
-  file:
-    path: "{{ filebeat_ssl_dir }}"
-    state: directory
-  when: filebeat_ssl_key_file
-
-- name: Copy SSL key and cert for filebeat.
+- name: Create Logstash filters.
   copy:
-    src: "{{ item }}"
-    dest: "{{ filebeat_ssl_dir }}/{{ item | basename }}"
+    src: "filters/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
     mode: 0644
   with_items:
-    - "{{ filebeat_ssl_key_file }}"
-    - "{{ filebeat_ssl_certificate_file }}"
-  notify: restart filebeat
-  when: filebeat_ssl_key_file and filebeat_ssl_certificate_file
+    - 10-syslog.conf
+    - 11-nginx.conf
+    - 12-apache.conf
+    - 14-solr.conf
+    - 15-drupal.conf
+  notify: restart logstash
+
+- name: Create Logstash configuration file for local syslog.
+  template:
+    src: 02-local-syslog-input.conf.j2
+    dest: /etc/logstash/conf.d/02-local-syslog-input.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: logstash_monitor_local_syslog
+  notify: restart logstash
+
+- name: Ensure configuration for local syslog is absent if disabled.
+  file:
+    path: /etc/logstash/conf.d/02-local-syslog-input.conf
+    state: absent
+  when: not logstash_monitor_local_syslog
+  notify: restart logstash

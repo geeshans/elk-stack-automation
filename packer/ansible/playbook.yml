@@ -5,3 +5,4 @@
     - role: java
     - role: filebeat
     - role: elasticsearch
+    - role: logstash
