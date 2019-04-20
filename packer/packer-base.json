@@ -57,11 +57,6 @@
         "type": "ansible-local",
         "playbook_dir": "./ansible",
         "playbook_file": "./ansible/playbook.yml"
-      },
-      {
-        "type": "file",
-        "source": "./serverspec",
-        "destination": "/tmp/"
       }
     ],
     "post-processors": [
