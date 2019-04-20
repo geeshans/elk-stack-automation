@@ -5,7 +5,7 @@
       "aws_region": "{{env `AWS_REGION`}}",
       "ssh_keypair_name": "{{env `SSH_KEYPAIR_NAME`}}",
       "ssh_private_key_file": "{{env `SSH_PRIVATE_KEY_FILE`}}",
-      "ami_name": "packer-aws-base",
+      "ami_name": "packer-kibana-ami",
       "version": "v1"
     },
     "builders": [
@@ -56,7 +56,7 @@
       {
         "type": "ansible-local",
         "playbook_dir": "./ansible",
-        "playbook_file": "./ansible/playbook.yml"
+        "playbook_file": "./ansible/aws-kibana.yml"
       }
     ],
     "post-processors": [

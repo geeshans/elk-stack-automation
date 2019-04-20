@@ -31,11 +31,17 @@ export SSH_PRIVATE_KEY_FILE="$HOME/.ssh/packer.pem"
 
 ### build Packer AMI
 
-packer validate packer-base.json
+packer validate packer-elasticsearch-ami.json
+packer validate packer-logstash-ami.json
+packer validate packer-kibana-ami.json
 
-packer inspect packer-base.json
+packer inspect packer-elasticsearch-ami.json
+packer inspect packer-logstash-ami.json
+packer inspect packer-kibana-ami.json
 
-packer build -only=amazon-ebs packer-base.json
+packer build -only=amazon-ebs packer-elasticsearch-ami.json
+packer build -only=amazon-ebs packer-logstash-ami.json
+packer build -only=amazon-ebs packer-kibana-ami.json
 
 # print AMI ID
 export ELK_AMI_ID=$(jq '.builds[-1].artifact_id' -r manifest.json | cut -d':' -f2);
