@@ -31,11 +31,11 @@ export SSH_PRIVATE_KEY_FILE="$HOME/.ssh/packer.pem"
 
 ### build Packer AMI
 
-packer validate packer_aws.json
+packer validate packer-base.json
 
-packer inspect packer_aws.json
+packer inspect packer-base.json
 
-packer build -only=amazon-ebs packer_aws.json
+packer build -only=amazon-ebs packer-base.json
 
 # print AMI ID
 export ELK_AMI_ID=$(jq '.builds[-1].artifact_id' -r manifest.json | cut -d':' -f2);
