@@ -252,9 +252,10 @@ resource "aws_instance" "logstash_instance" {
 data "template_file" "test" {
   template = "${file("./userdata-logstash.sh")}"
   vars {
-    es_cluster_ip0 = "${aws_instance.elasticsearch_instance.0.private_ip}"
-    es_cluster_ip1 = "${aws_instance.elasticsearch_instance.1.private_ip}"
-    es_cluster_ip2 = "${aws_instance.elasticsearch_instance.2.private_ip}"
+    es_cluster_ip0 = "${element(aws_instance.elasticsearch_instance.*.private_ip, 0)}"
+    es_cluster_ip1 = "${element(aws_instance.elasticsearch_instance.*.private_ip, 1)}"
+    es_cluster_ip2 = "${element(aws_instance.elasticsearch_instance.*.private_ip, 2)}"
+
  
   }
 }
