@@ -79,7 +79,7 @@ resource "aws_route_table_association" "private" {
 }
 #IAM
 resource "aws_iam_role" "ec2_role" {
-  name = "tf_ecs_execution_role"
+  name = "tf_ec2_execution_role"
 
   assume_role_policy = <<EOF
 {
@@ -118,9 +118,9 @@ resource "aws_iam_role_policy" "ec2_policy" {
 EOF
 }
 
-resource "aws_iam_instance_profile" "elasticsearch_profile" {
-  name  = "elasticsearch_profile"
-  role = "${aws_iam_role.es_role.name}"
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name  = "ec2_profile"
+  role = "${aws_iam_role.ec2_role.name}"
 }
     
 
@@ -248,5 +248,5 @@ resource "aws_instance" "logstash_instance" {
 }
 
 output "cluster-private-ips" {
-  value = "${formatlist("%v", aws_instance.aws_instance.*.private_ip)}"
+  value = "${formatlist("%v", aws_instance.elasticsearch_instance.*.private_ip)}"
 }
