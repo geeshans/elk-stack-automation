@@ -244,12 +244,12 @@ resource "aws_instance" "logstash_instance" {
   tags {
     Name = "logstash_instance_${count.index}"
   }
-  user_data = "${data.template_file.test.rendered}"
+  user_data = "${data.template_file.es-ips.rendered}"
 
 
 }
 
-data "template_file" "test" {
+data "template_file" "es-ips" {
   template = "${file("./userdata-logstash.sh")}"
   vars {
     es_cluster_ip0 = "${element(aws_instance.elasticsearch_instance.*.private_ip, 0)}"
@@ -261,7 +261,20 @@ data "template_file" "test" {
 }
 
 
+##Kibana EC2 Instance##
+resource "aws_instance" "kibana_instance" {
+  ami           = "${var.aws_kibana_ami}"
+  instance_type = "${var.aws_kibana_instance_type}"
+  key_name = "${var.keypair_name}"
+  vpc_security_group_ids = ["${aws_security_group.kibana-sg.id}"]
+  iam_instance_profile = "${aws_iam_instance_profile.ec2_profile.name}"
+  count = "1"
+  subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
+  tags {
+    Name = "logstash_instance_${count.index}"
+  }
+  user_data = "${data.template_file.test.rendered}"
 
-output "cluster-private-ips" {
-  value = "${formatlist("%v", aws_instance.elasticsearch_instance.*.private_ip)}"
 }
+
+
