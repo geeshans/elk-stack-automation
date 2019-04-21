@@ -15,6 +15,18 @@
     mode: 0660
   notify: restart elasticsearch
 
+- name: modify the soft memlock limits.
+  lineinfile:
+    path: /etc/security/limits.conf
+    line: '* soft memlock unlimited'
+  notify: restart elasticsearch
+
+- name: modify the hard memlock limits.
+  lineinfile:
+    path: /etc/security/limits.conf
+    line: '* hard memlock unlimited'
+  notify: restart elasticsearch
+
 - name: Force a restart if configuration has changed.
   meta: flush_handlers
 
@@ -23,6 +35,8 @@
     name: elasticsearch
     state: "{{ elasticsearch_service_state }}"
     enabled: "{{ elasticsearch_service_enabled }}"
+
+
 
 #- name: Make sure Elasticsearch is running before proceeding.
 #  wait_for:
