@@ -1,8 +1,7 @@
 #!/bin/bash
 
-ip0=${es_cluster_ip0}
-ip1=${es_cluster_ip1}
-ip2=${es_cluster_ip2}
+sed -i -e 's/ip0/${es_cluster_ip0}/' /etc/logstash/conf.d/30-elasticsearch-output.conf
+sed -i -e 's/ip1/${es_cluster_ip1}/' /etc/logstash/conf.d/30-elasticsearch-output.conf
+sed -i -e 's/ip2/${es_cluster_ip2}/' /etc/logstash/conf.d/30-elasticsearch-output.conf
 
-
-echo "$ip0" > /tmp/text
+service logstash restart

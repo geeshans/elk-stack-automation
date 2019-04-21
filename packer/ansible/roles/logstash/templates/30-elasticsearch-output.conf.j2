@@ -1,6 +1,6 @@
 output {
   elasticsearch {
-    hosts => {{ logstash_elasticsearch_hosts | to_json }}
+    hosts => ["http://ip0:9200","http://ip1:9200","http://ip2:9200"]
     index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
     document_type => "%{[@metadata][type]}"
   }
