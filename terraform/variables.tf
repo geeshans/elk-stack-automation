@@ -1,6 +1,6 @@
 variable "aws_es_ami" {
   description = "AMI created by Packer for ES"
-  default     = "ami-01047da08bb44f2f1"
+  default     = "ami-07987d5164bc710f8"
 }
 
 variable "aws_es_instance_type" {
