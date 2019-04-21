@@ -128,7 +128,7 @@ resource "aws_iam_instance_profile" "elasticsearch_profile" {
 # Security group
 # These are the groups to edit if  want to restrict access to applications
 resource "aws_security_group" "logstash-sg" {
-  name        = "elk-logstash-sg"
+  name        = "logstash-sg"
   description = "Controls access to the Logstash instances"
   vpc_id      = "${aws_vpc.main.id}"
 
@@ -156,7 +156,7 @@ resource "aws_security_group" "logstash-sg" {
 }
 
 resource "aws_security_group" "kibana-sg" {
-  name        = "elk-kibana-sg"
+  name        = "kibana-sg"
   description = "Controls access to the Kibana instances"
   vpc_id      = "${aws_vpc.main.id}"
 
@@ -184,7 +184,7 @@ resource "aws_security_group" "kibana-sg" {
 }
 
 resource "aws_security_group" "elasticsearch-sg" {
-  name        = "elk-elasticsearch-sg"
+  name        = "elasticsearch-sg"
   description = "Controls access to the Elasticsearch instances"
   vpc_id      = "${aws_vpc.main.id}"
 
@@ -221,7 +221,7 @@ resource "aws_security_group" "elasticsearch-sg" {
 resource "aws_instance" "elasticsearch_instance" {
   ami           = "${var.aws_es_ami}"
   instance_type = "${var.aws_es_instance_type}"
-  security_groups = ["${aws_security_group.elasticsearch-sg.name}"]
+  security_groups = ["${aws_security_group.elasticsearch-sg.id}"]
   iam_instance_profile = "${aws_iam_instance_profile.elasticsearch_profile.name}"
   user_data = "${file("userdata-es.sh")}"
   count = "3"
