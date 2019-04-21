@@ -13,7 +13,7 @@ filebeat_output_elasticsearch_hosts:
 
 filebeat_output_logstash_enabled: true
 filebeat_output_logstash_hosts:
-  - "localhost:5044"
+  - "localhost:5042"
 
 filebeat_enable_logging: false
 filebeat_log_level: warning

@@ -3,9 +3,6 @@ logstash_version: '6.x'
 
 logstash_listen_port_beats: 5042
 
-logstash_elasticsearch_hosts:
-  - http://localhost:9200
-
 logstash_local_syslog_path: /var/log/syslog
 logstash_monitor_local_syslog: true
 
