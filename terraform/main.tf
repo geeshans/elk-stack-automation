@@ -271,7 +271,7 @@ resource "aws_instance" "kibana_instance" {
   count = "1"
   subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   tags {
-    Name = "logstash_instance_${count.index}"
+    Name = "kibana_instance_${count.index}"
   }
 
 }
