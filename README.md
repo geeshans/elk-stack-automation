@@ -10,7 +10,7 @@ This project will create an ELK stack in AWS using Packer, Ansible and Terraform
 To run this project you will need the below tools installed in you machine:
 - [Packer](https://www.packer.io/downloads.html)
 - [Ansible](http://docs.ansible.com/ansible/latest/intro_installation.html)
-- [Terraform] (https://www.terraform.io/intro/index.html)
+- [Terraform](https://www.terraform.io/intro/index.html)
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 - [jq](https://stedolan.github.io/jq/)
 
