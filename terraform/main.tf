@@ -256,6 +256,12 @@ data "template_file" "test" {
   }
 }
 
+provisioner "file" {
+        content = "${template_file.test.rendered}"
+        destination = "/etc/logstash/conf.d/30-elasticsearch-output.conf"
+}
+
+
 output "cluster-private-ips" {
   value = "${formatlist("%v", aws_instance.elasticsearch_instance.*.private_ip)}"
 }
