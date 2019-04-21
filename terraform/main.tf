@@ -244,12 +244,8 @@ resource "aws_instance" "logstash_instance" {
   tags {
     Name = "logstash_instance_${count.index}"
   }
-  provisioner "remote-exec" {
-    inline= [
-     "echo \"${template_file.test.rendered}\" > tmp.txt",
-     "sudo cp /etc/logstash/conf.d/30-elasticsearch-output.conf"
-    ] 
-  }
+  user_data = "${data.template_file.test.rendered}"
+
 
 }
 
