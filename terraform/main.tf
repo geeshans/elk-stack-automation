@@ -244,6 +244,11 @@ resource "aws_instance" "logstash_instance" {
   tags {
     Name = "logstash_instance_${count.index}"
   }
+  provisioner "file" {
+        content = "${template_file.test.rendered}"
+        destination = "/etc/logstash/conf.d/30-elasticsearch-output.conf"
+  }
+
 }
 
 data "template_file" "test" {
@@ -256,10 +261,6 @@ data "template_file" "test" {
   }
 }
 
-provisioner "file" {
-        content = "${template_file.test.rendered}"
-        destination = "/etc/logstash/conf.d/30-elasticsearch-output.conf"
-}
 
 
 output "cluster-private-ips" {
