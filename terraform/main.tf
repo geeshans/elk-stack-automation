@@ -239,11 +239,20 @@ resource "aws_instance" "logstash_instance" {
   key_name = "${var.keypair_name}"
   vpc_security_group_ids = ["${aws_security_group.logstash-sg.id}"]
   iam_instance_profile = "${aws_iam_instance_profile.ec2_profile.name}"
-  user_data = "${file("userdata-logstash.sh")}"
   count = "1"
   subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   tags {
-    Name = "elasticsearch_instance_${count.index}"
+    Name = "logstash_instance_${count.index}"
+  }
+}
+
+data "template_file" "test" {
+  template = "${file("./30-elasticsearch-output.conf")}"
+  vars {
+    es_cluster_ip0 = "${aws_instance.elasticsearch_instance.0.private_ip}"
+    es_cluster_ip1 = "${aws_instance.elasticsearch_instance.1.private_ip}"
+    es_cluster_ip2 = "${aws_instance.elasticsearch_instance.2.private_ip}"
+ 
   }
 }
 

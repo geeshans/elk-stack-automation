@@ -8,6 +8,16 @@ variable "aws_es_instance_type" {
   default     = "t2.large"
 }
 
+variable "aws_logstash_ami" {
+  description = "AMI created by Packer for Logstash"
+  default     = "ami-0c7f0c524fa434559"
+}
+
+variable "aws_logstash_instance_type" {
+  description = "Instance size for the logstash"
+  default     = "t2.large"
+}
+
 variable "aws_region" {
   description = "The AWS region to create things in."
   default     = "us-east-1"
