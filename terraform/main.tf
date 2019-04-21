@@ -221,6 +221,7 @@ resource "aws_security_group" "elasticsearch-sg" {
 resource "aws_instance" "elasticsearch_instance" {
   ami           = "${var.aws_es_ami}"
   instance_type = "${var.aws_es_instance_type}"
+  key_name = "${var.keypair_name}"
   vpc_security_group_ids = ["${aws_security_group.elasticsearch-sg.id}"]
   iam_instance_profile = "${aws_iam_instance_profile.elasticsearch_profile.name}"
   user_data = "${file("userdata-es.sh")}"

@@ -19,3 +19,7 @@ variable "az_count" {
   default     = "2"
 }
 
+variable "keypair_name" {
+  description = "Name of the keypair to access ec2 instances"
+  default     = "terraform"
+}
