@@ -1,6 +1,6 @@
 variable "aws_es_ami" {
   description = "AMI created by Packer for ES"
-  default     = "ami-07f415563a7540152"
+  default     = "ami-0f4c328610d3501c0"
 }
 
 variable "aws_es_instance_type" {
@@ -10,7 +10,7 @@ variable "aws_es_instance_type" {
 
 variable "aws_logstash_ami" {
   description = "AMI created by Packer for Logstash"
-  default     = "ami-0c7f0c524fa434559"
+  default     = "ami-0264d22345ab1fd3a"
 }
 
 variable "aws_logstash_instance_type" {
