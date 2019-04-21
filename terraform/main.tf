@@ -250,7 +250,7 @@ resource "aws_instance" "logstash_instance" {
 }
 
 data "template_file" "test" {
-  template = "${file("./30-elasticsearch-output.conf")}"
+  template = "${file("./userdata-logstash.sh")}"
   vars {
     es_cluster_ip0 = "${aws_instance.elasticsearch_instance.0.private_ip}"
     es_cluster_ip1 = "${aws_instance.elasticsearch_instance.1.private_ip}"
