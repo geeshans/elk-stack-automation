@@ -18,7 +18,7 @@ In addition to this the EC2 that you are running this from need to have a [Role]
 
 Also you need to create two Keypairs in your AWS account as "terraform" and "packer"
 
-## Creating  Amazon MAchine Images using Packer
+## Creating  Amazon Machine Images using Packer
 
 ```shell
 git clone https://github.com/geeshans/elk-stack-automation.git
@@ -27,14 +27,14 @@ chmod 755 build_packer_aws.sh
 ./build_packer_aws.sh
 ```
 
-##Using Terraform to create the cluster
+## Using Terraform to create the cluster
 ```shell
 cd ../terraform/
 #Update the variables.tf file with the newly created AMI IDs
 terraform apply .
 ```
 
-##ToDo
+## ToDo
 1. Use a Base image and build from it to improve packer time
 2. Restructure the files to reduce redundunt files
 3. Improve on the how Elastic nodes are configured in logstash
