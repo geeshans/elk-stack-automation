@@ -87,3 +87,7 @@ http.port: {{ elasticsearch_http_port }}
 # Require explicit names when deleting indices:
 #
 #action.destructive_requires_name: true
+
+discovery.zen.hosts_provider: ec2
+cloud.aws.region: us-east-1
+network.host: _ec2_
