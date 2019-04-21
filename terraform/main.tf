@@ -225,7 +225,7 @@ resource "aws_instance" "elasticsearch_instance" {
   iam_instance_profile = "${aws_iam_instance_profile.elasticsearch_profile.name}"
   user_data = "${file("userdata-es.sh")}"
   count = "3"
-
+  subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   tags {
     Name = "elasticsearch_instance_${count.index}"
   }
