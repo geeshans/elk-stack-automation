@@ -78,7 +78,7 @@ resource "aws_route_table_association" "private" {
   route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
 }
 #IAM
-resource "aws_iam_role" "es_role" {
+resource "aws_iam_role" "ec2_role" {
   name = "tf_ecs_execution_role"
 
   assume_role_policy = <<EOF
@@ -98,9 +98,9 @@ resource "aws_iam_role" "es_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "es_policy" {
-  name = "ecs_execution_policy"
-  role = "${aws_iam_role.es_role.name}"
+resource "aws_iam_role_policy" "ec2_policy" {
+  name = "ec2_execution_policy"
+  role = "${aws_iam_role.ec2_role.name}"
 
   policy = <<EOF
 {
@@ -223,11 +223,30 @@ resource "aws_instance" "elasticsearch_instance" {
   instance_type = "${var.aws_es_instance_type}"
   key_name = "${var.keypair_name}"
   vpc_security_group_ids = ["${aws_security_group.elasticsearch-sg.id}"]
-  iam_instance_profile = "${aws_iam_instance_profile.elasticsearch_profile.name}"
+  iam_instance_profile = "${aws_iam_instance_profile.ec2_profile.name}"
   user_data = "${file("userdata-es.sh")}"
   count = "3"
   subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   tags {
     Name = "elasticsearch_instance_${count.index}"
   }
+}
+
+##Logstash EC2 Instance##
+resource "aws_instance" "logstash_instance" {
+  ami           = "${var.aws_logstash_ami}"
+  instance_type = "${var.aws_logstash_instance_type}"
+  key_name = "${var.keypair_name}"
+  vpc_security_group_ids = ["${aws_security_group.logstash-sg.id}"]
+  iam_instance_profile = "${aws_iam_instance_profile.ec2_profile.name}"
+  user_data = "${file("userdata-logstash.sh")}"
+  count = "1"
+  subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
+  tags {
+    Name = "elasticsearch_instance_${count.index}"
+  }
+}
+
+output "cluster-private-ips" {
+  value = "${formatlist("%v", aws_instance.aws_instance.*.private_ip)}"
 }
