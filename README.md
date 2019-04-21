@@ -1,7 +1,7 @@
-# elk-stack-automation
+# ELK Stack Automation
 
 This project will create an ELK stack in AWS using Packer, Ansible and Terraform. For the moment there are two different parts to the pipeline
-1. Creating  Amazon MAchine Images using Packer
+1. Creating  Amazon Machine Images using Packer
 2. Using those AMIs to create the cluster
 
 
