@@ -39,7 +39,7 @@ terraform apply .
 
 ## Monitoring
 Monitoring for Elasticsearch and Kibana can be enabled via the XPack feature
-http://<KIBANA_SERVER>:5601/app/monitoring#/overview?_g=(cluster_uuid:hMq87SaMQXuH9ws2rg8VFw)
+#### http://<KIBANA_SERVER>:5601/app/monitoring
 
 
 
