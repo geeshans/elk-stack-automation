@@ -36,7 +36,15 @@ terraform init
 terraform apply .
 ```
 
+## Monitoring
+Monitoring for Elasticsearch and Kibana can be enabled via the XPack feature
+http://<KIBANA_SERVER>:5601/app/monitoring#/overview?_g=(cluster_uuid:hMq87SaMQXuH9ws2rg8VFw)
+
+
+
 ## ToDo
-1. Use a Base image and build from it to improve packer time
-2. Restructure the files to reduce redundunt files
-3. Improve on the how Elastic nodes are configured in logstash
+1. Backup and Monitoring of the resources
+2. Use a Base image and build from it to improve packer time
+3. Restructure the files to reduce redundunt files
+4. Improve on the how Elastic nodes are configured in logstash
+5. Documentation for different Ansible Roles
