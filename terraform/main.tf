@@ -273,6 +273,7 @@ resource "aws_instance" "kibana_instance" {
   tags {
     Name = "kibana_instance_${count.index}"
   }
+  user_data = "${data.template_file.es-ips.rendered}"
 
 }
 

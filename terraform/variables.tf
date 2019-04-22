@@ -19,12 +19,12 @@ variable "aws_logstash_instance_type" {
 }
 
 variable "aws_kibana_ami" {
-  description = "AMI created by Packer for Logstash"
+  description = "AMI created by Packer for Kibana"
   default     = "ami-090ed472a4ecaea67"
 }
 
 variable "aws_kibana_instance_type" {
-  description = "Instance size for the logstash"
+  description = "Instance size for the Kibana"
   default     = "t2.large"
 }
 

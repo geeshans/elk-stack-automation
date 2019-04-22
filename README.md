@@ -23,14 +23,16 @@ Also you need to create two Keypairs in your AWS account as "terraform" and "pac
 ```shell
 git clone https://github.com/geeshans/elk-stack-automation.git
 cd ./elk-stack-automation/packer/
-chmod 755 build_packer_aws.sh
-./build_packer_aws.sh
+ chmod u+x run-packer-base.sh
+ ./run-packer-base.sh
 ```
+Etimated Runtime: 20 mins
 
 ## Using Terraform to create the cluster
 ```shell
 cd ../terraform/
 #Update the variables.tf file with the newly created AMI IDs
+terraform init
 terraform apply .
 ```
 
