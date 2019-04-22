@@ -28,6 +28,7 @@ cd ./elk-stack-automation/packer/
 ```
 Etimated Runtime: 20 mins
 
+
 ## Using Terraform to create the cluster
 ```shell
 cd ../terraform/
@@ -48,3 +49,4 @@ http://<KIBANA_SERVER>:5601/app/monitoring#/overview?_g=(cluster_uuid:hMq87SaMQX
 3. Restructure the files to reduce redundunt files
 4. Improve on the how Elastic nodes are configured in logstash
 5. Documentation for different Ansible Roles
+6. Use standard HTTP ports and set up a TLS for all services
