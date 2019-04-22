@@ -244,12 +244,12 @@ resource "aws_instance" "logstash_instance" {
   tags {
     Name = "logstash_instance_${count.index}"
   }
-  user_data = "${data.template_file.es-ips.rendered}"
+  user_data = "${data.template_file.logstash-es-ips.rendered}"
 
 
 }
 
-data "template_file" "es-ips" {
+data "template_file" "logstash-es-ips" {
   template = "${file("./userdata-logstash.sh")}"
   vars {
     es_cluster_ip0 = "${element(aws_instance.elasticsearch_instance.*.private_ip, 0)}"
@@ -259,6 +259,7 @@ data "template_file" "es-ips" {
  
   }
 }
+
 
 
 ##Kibana EC2 Instance##
@@ -273,8 +274,16 @@ resource "aws_instance" "kibana_instance" {
   tags {
     Name = "kibana_instance_${count.index}"
   }
-  user_data = "${data.template_file.es-ips.rendered}"
+  user_data = "${data.template_file.kibana-es-ips.rendered}"
 
+}
+
+data "template_file" "kibana-es-ips" {
+  template = "${file("./userdata-kibana.sh")}"
+  vars {
+    es_cluster_ip0 = "${element(aws_instance.elasticsearch_instance.*.private_ip, 0)}"
+
+  }
 }
 
 
